@@ -3,23 +3,23 @@
 namespace App\Http\Controllers\AdminController;
 
 use App\Facades\AppHelper;
-use App\Models\BreakingNews;
+use App\Models\SortHeading;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class BreakingNewsController extends AdminBaseController
+class SortHeadingController extends AdminBaseController
 {
     protected $model;
-    protected $base_route = 'BreakingNews.index';
-    protected $view_path = 'backend.breaking_news';
+    protected $base_route = 'headings.index';
+    protected $view_path = 'backend.sort_heading';
 
     /**
      * PostController constructor.
      */
     public function __Construct()
     {
-        $this->image_url = 'assets/uploads/breakingNews/';
+        $this->image_url = 'assets/uploads/srotHeading/';
     }
 
     /**
@@ -28,7 +28,7 @@ class BreakingNewsController extends AdminBaseController
     public function index()
     {
         $data = [];
-        $data['rows'] = BreakingNews::select('id', 'title', 'status' , DB::raw("DATE_FORMAT(created_at,'%M %d, %Y') as date") )
+        $data['rows'] = SortHeading::select('id', 'title','order', 'status' , DB::raw("DATE_FORMAT(created_at,'%M %d, %Y') as date") )
             ->orderBy('created_at', 'desc')
             ->paginate(15);
         return view($this->view_path . '.index', compact('data'));
@@ -48,34 +48,22 @@ class BreakingNewsController extends AdminBaseController
      */
     public function store(Request $request)
     {
-//        dd($request->BreakingNews);
+//        dd($request->description);
         $this->validate($request, [
             'title' => 'required',
-            'file' => 'mimes:jpg,jpeg,png|max:1024',
-            'article' => 'required',
+            'description' => 'required',
         ], $messages = [
             'required' => 'The :attribute field is required.',
-            'mimes' => 'Only JPG/JPEG and PNG images are accepted!',
-            'max' => 'Image Size must be less than 1024 KB'
         ]);
-        $data=new BreakingNews();
+        $data=new SortHeading();
         $data->title= $request->title;
-        $data->article= $request->article;
+        $data->order= $request->order;
+        $data->description= $request->description;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
-
-        if (!file_exists($this->image_url)) {
-            mkdir($this->image_url);
-        }
-
-        if ($file = $request->file('file')) {
-
-            $file_name = str_replace(' ', '_', (rand(1857, 9899) . '_' . $file->getClientOriginalName()));
-            $file->move($this->image_url, $file_name);
-            $data->image = $file_name;
             $data->save();
-        }
-        AppHelper::flash('success', trans('Well Done! News BreakingNews Created Successfully'));
+
+        AppHelper::flash('success', trans('Well Done! News SortHeading Created Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -92,7 +80,7 @@ class BreakingNewsController extends AdminBaseController
         $data = [];
         $data['row'] = $this->model;
 
-        return view('backend.breaking_news.edit', compact('data'));
+        return view('backend.sort_heading.edit', compact('data'));
     }
 
     /**
@@ -104,43 +92,25 @@ class BreakingNewsController extends AdminBaseController
     {
         $this->validate($request, [
             'title' => 'required',
-            'file' => 'mimes:jpg,jpeg,png|max:1024',
-            'article' => 'required',
+            'description' => 'required',
         ],
             $messages = [
                 'required' => 'The :attribute field is required.',
-                'mimes' => 'Only JPG/JPEG and PNG images are accepted!',
-                'max' => 'Image Size must be less than 1024 KB'
             ]
         );
         if (!$this->idExist($id)) {
             return redirect()->route($this->base_route)->with('alert-danger', 'Invalid Id');
         }
-        $data=BreakingNews::find($id);
+        $data=SortHeading::find($id);
         $data->title= $request->title;
-        $data->article= $request->article;
+        $data->order= $request->order;
+
+        $data->description= $request->description;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
-        if (!file_exists($this->image_url)) {
-            mkdir($this->image_url);
-        }
-
-        if ($file = $request->file('file')) {
-            //remove old image if new is uploaded
-            if (!empty($data->image)) {
-                $file_path = $this->image_url . $data->image;
-
-                if (file_exists($file_path)) {
-                    unlink($file_path);
-                }
-            }
-            //upload new image
-            $file_name = str_replace(' ', '_', (rand(1857, 9899) . '_' . $file->getClientOriginalName()));
-            $file->move($this->image_url, $file_name);
-            $data->image = $file_name;
             $data->save();
-        }
-        AppHelper::flash('success', trans('Well Done! News BreakingNews Edited Successfully'));
+
+        AppHelper::flash('success', trans('Well Done! News SortHeading Edited Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -155,7 +125,7 @@ class BreakingNewsController extends AdminBaseController
             return redirect()->route($this->base_route)->with('alert-danger', 'Invalid Id');
         }
 
-        $data = BreakingNews::find($id);
+        $data = SortHeading::find($id);
         //remove image
         if (!empty($data->image) && file_exists($this->image_url . $data->image)) {
             $file_path = $this->image_url . $data->image;
@@ -164,8 +134,8 @@ class BreakingNewsController extends AdminBaseController
                 unlink($file_path);
             }
         }
-        BreakingNews::destroy($id);
-        AppHelper::flash('success', trans('Well Done! News BreakingNews Deleted Successfully'));
+        SortHeading::destroy($id);
+        AppHelper::flash('success', trans('Well Done! News SortHeading Deleted Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -184,7 +154,7 @@ class BreakingNewsController extends AdminBaseController
      */
     protected function idExist($id)
     {
-        $this->model = BreakingNews::find($id);
+        $this->model = SortHeading::find($id);
         return $this->model;
     }
 }

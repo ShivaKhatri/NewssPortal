@@ -30,6 +30,15 @@
                             <li><a href="{{route('images.index')}}"><i class="fa fa-arrow-up"></i> Images
                                     <span class="label label-success"></span></a>
                             </li>
+                            <li><a href="{{route('testimonials.index')}}"><i class="fa fa-arrow-up"></i> Testimonials
+                                    <span class="label label-success"></span></a>
+                            </li>
+                            <li><a href="{{route('videos.index')}}"><i class="fa fa-arrow-up"></i> Video
+                                    <span class="label label-success"></span></a>
+                            </li>
+                            <li><a href="{{route('headings.index')}}"><i class="fa fa-arrow-up"></i> Sort Heading
+                                    <span class="label label-success"></span></a>
+                            </li>
                         {{--@endif--}}
                         {{--<li><a href="{{route('admin.student.application')}}"><i class="fa fa-file-text-o"></i> Student Applications--}}
                         {{--<span class="label label-success"></span></a>--}}

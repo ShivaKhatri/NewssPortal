@@ -36,6 +36,18 @@ Route::group(['prefix' => '', 'middleware' => 'auth'], function () {
 
     Route::resource('images','AdminController\ImageController');
 
+    Route::get('testimonials/status', ['as' => 'testimonials.status', 'uses' => 'AdminController\TestomonialController@status']);
+
+    Route::resource('testimonials','AdminController\TestomonialController');
+
+    Route::get('videos/status', ['as' => 'videos.status', 'uses' => 'AdminController\VideoController@status']);
+
+    Route::resource('videos','AdminController\VideoController');
+
+    Route::get('headings/status', ['as' => 'headings.status', 'uses' => 'AdminController\SortHeadingController@status']);
+
+    Route::resource('headings','AdminController\SortHeadingController');
+
 });
 Auth::routes();
 

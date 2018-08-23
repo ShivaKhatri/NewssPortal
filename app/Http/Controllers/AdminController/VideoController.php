@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\AdminController;
 
 use App\Facades\AppHelper;
-use App\Models\BreakingNews;
+use App\Models\Video;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class BreakingNewsController extends AdminBaseController
+class VideoController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     protected $model;
-    protected $base_route = 'BreakingNews.index';
-    protected $view_path = 'backend.breaking_news';
+    protected $base_route = 'videos.index';
+    protected $view_path = 'backend.Video';
 
     /**
      * PostController constructor.
      */
     public function __Construct()
     {
-        $this->image_url = 'assets/uploads/breakingNews/';
+        $this->image_url = 'assets/uploads/video/';
     }
 
     /**
@@ -28,8 +34,8 @@ class BreakingNewsController extends AdminBaseController
     public function index()
     {
         $data = [];
-        $data['rows'] = BreakingNews::select('id', 'title', 'status' , DB::raw("DATE_FORMAT(created_at,'%M %d, %Y') as date") )
-            ->orderBy('created_at', 'desc')
+        $data['rows'] = Video::select('id', 'name', 'status' ,'order', DB::raw("DATE_FORMAT(created_at,'%M %d, %Y') as date") )
+            ->orderBy('order', 'asc')
             ->paginate(15);
         return view($this->view_path . '.index', compact('data'));
     }
@@ -48,19 +54,21 @@ class BreakingNewsController extends AdminBaseController
      */
     public function store(Request $request)
     {
-//        dd($request->BreakingNews);
+//        dd($request->Video);
         $this->validate($request, [
-            'title' => 'required',
+            'name' => 'required',
+            'order' => 'required',
             'file' => 'mimes:jpg,jpeg,png|max:1024',
-            'article' => 'required',
+            'description' => 'required',
         ], $messages = [
             'required' => 'The :attribute field is required.',
             'mimes' => 'Only JPG/JPEG and PNG images are accepted!',
-            'max' => 'Image Size must be less than 1024 KB'
+            'max' => 'Video Size must be less than 1024 KB'
         ]);
-        $data=new BreakingNews();
-        $data->title= $request->title;
-        $data->article= $request->article;
+        $data=new Video();
+        $data->name= $request->name;
+        $data->description= $request->description;
+        $data->order= $request->order;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
 
@@ -69,13 +77,12 @@ class BreakingNewsController extends AdminBaseController
         }
 
         if ($file = $request->file('file')) {
-
             $file_name = str_replace(' ', '_', (rand(1857, 9899) . '_' . $file->getClientOriginalName()));
             $file->move($this->image_url, $file_name);
-            $data->image = $file_name;
+            $data->video = $file_name;
             $data->save();
         }
-        AppHelper::flash('success', trans('Well Done! News BreakingNews Created Successfully'));
+        AppHelper::flash('success', trans('Well Done! News Video Created Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -92,7 +99,7 @@ class BreakingNewsController extends AdminBaseController
         $data = [];
         $data['row'] = $this->model;
 
-        return view('backend.breaking_news.edit', compact('data'));
+        return view('backend.Video.edit', compact('data'));
     }
 
     /**
@@ -103,22 +110,23 @@ class BreakingNewsController extends AdminBaseController
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'title' => 'required',
+            'name' => 'required',
             'file' => 'mimes:jpg,jpeg,png|max:1024',
-            'article' => 'required',
+            'order' => 'required',
         ],
             $messages = [
                 'required' => 'The :attribute field is required.',
                 'mimes' => 'Only JPG/JPEG and PNG images are accepted!',
-                'max' => 'Image Size must be less than 1024 KB'
+                'max' => 'Video Size must be less than 1024 KB'
             ]
         );
         if (!$this->idExist($id)) {
             return redirect()->route($this->base_route)->with('alert-danger', 'Invalid Id');
         }
-        $data=BreakingNews::find($id);
-        $data->title= $request->title;
-        $data->article= $request->article;
+        $data=Video::find($id);
+        $data->name= $request->name;
+        $data->order= $request->order;
+        $data->description= $request->description;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
         if (!file_exists($this->image_url)) {
@@ -126,21 +134,21 @@ class BreakingNewsController extends AdminBaseController
         }
 
         if ($file = $request->file('file')) {
-            //remove old image if new is uploaded
-            if (!empty($data->image)) {
-                $file_path = $this->image_url . $data->image;
+            //remove old video if new is uploaded
+            if (!empty($data->video)) {
+                $file_path = $this->image_url . $data->video;
 
                 if (file_exists($file_path)) {
                     unlink($file_path);
                 }
             }
-            //upload new image
+            //upload new video
             $file_name = str_replace(' ', '_', (rand(1857, 9899) . '_' . $file->getClientOriginalName()));
             $file->move($this->image_url, $file_name);
-            $data->image = $file_name;
+            $data->video = $file_name;
             $data->save();
         }
-        AppHelper::flash('success', trans('Well Done! News BreakingNews Edited Successfully'));
+        AppHelper::flash('success', trans('Well Done! News Video Edited Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -155,17 +163,17 @@ class BreakingNewsController extends AdminBaseController
             return redirect()->route($this->base_route)->with('alert-danger', 'Invalid Id');
         }
 
-        $data = BreakingNews::find($id);
-        //remove image
-        if (!empty($data->image) && file_exists($this->image_url . $data->image)) {
-            $file_path = $this->image_url . $data->image;
+        $data = Video::find($id);
+        //remove video
+        if (!empty($data->video) && file_exists($this->image_url . $data->video)) {
+            $file_path = $this->image_url . $data->video;
 
             if (file_exists($file_path)) {
                 unlink($file_path);
             }
         }
-        BreakingNews::destroy($id);
-        AppHelper::flash('success', trans('Well Done! News BreakingNews Deleted Successfully'));
+        Video::destroy($id);
+        AppHelper::flash('success', trans('Well Done! News Video Deleted Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -184,7 +192,7 @@ class BreakingNewsController extends AdminBaseController
      */
     protected function idExist($id)
     {
-        $this->model = BreakingNews::find($id);
+        $this->model = Video::find($id);
         return $this->model;
     }
 }

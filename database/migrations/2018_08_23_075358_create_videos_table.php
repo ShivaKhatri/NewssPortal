@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTestomonialsTable extends Migration
+class CreateVideosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,15 @@ class CreateTestomonialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('testomonials', function (Blueprint $table) {
+        Schema::create('videos', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('name');
+            $table->string('video');
+            $table->text('description')->nullable();
+            $table->tinyInteger('status')->default(1);
+            $table->integer('admin_id');
+            $table->integer('order');
         });
     }
 
@@ -26,6 +32,6 @@ class CreateTestomonialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('testomonials');
+        Schema::dropIfExists('videos');
     }
 }
