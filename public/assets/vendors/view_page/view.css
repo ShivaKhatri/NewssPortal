@@ -1,0 +1,21 @@
+input.hidden {
+    position: absolute;
+    left: -9999px;
+}
+
+#profile-image1 {
+    cursor: pointer;
+    /*width: 120px;*/
+    /*height: 120px;*/
+    /*border: 1px solid #777;*/
+}
+
+.tital {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.bot-border {
+    border-bottom: 1px #f8f8f8 solid;
+    margin: 5px 0 5px 0
+}
