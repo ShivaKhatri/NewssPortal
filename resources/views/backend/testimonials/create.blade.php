@@ -1,5 +1,5 @@
 @extends('backend.layout.main')
-@section('title','Create Images')
+@section('title','Create Testimonials')
 @section('content')
     <div class="row">
         <div class="col-sm-10 col-sm-offset-2 col-lg-10">
@@ -68,15 +68,6 @@
                         <div class="form-group">
                             <label class="control-label">Social Media</label>
                             {{ Form::select('social',[''=>'Select Social Networks','facebook'=>'Facebook','twitter'=>'Twitter','instagram'=>'Instagram'],null, array('class' => 'form-control col-md-7 col-xs-12')) }}
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-10">
-                        <div class="form-group">
-                            <label class="control-label">Social Media</label>
-                            {{ Form::select('type',[''=>'Select Type','literature'=>'Literature','post'=>'Post'],null, array('class' => 'form-control col-md-7 col-xs-12')) }}
 
                         </div>
                     </div>

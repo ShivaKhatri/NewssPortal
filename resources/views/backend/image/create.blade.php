@@ -1,9 +1,9 @@
 @extends('backend.layout.main')
-@section('title','Create Images')
+@section('title','Create Image Of The Month')
 @section('content')
     <div class="row">
         <div class="col-sm-10 col-sm-offset-2 col-lg-10">
-            <h2><a href="{{route('images.index')}}"> Blog Posts </a> ≫
+            <h2><a href="{{route('images.index')}}"> Create Image Of The Month </a> ≫
                 <small>@yield('title')</small>
             </h2>
             @if (session()->has('message'))

@@ -6,12 +6,12 @@
     @endif
     <div class="row">
         <div class="col-sm-12 col-lg-12">
-            <h2>Sort Heading</h2>
+            <h2> Literature review</h2>
 <hr>
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
                     <p>
-                        <a href="{{route('headings.create')}}" class="btn btn-primary pull-right"><i
+                        <a href="{{route('literature.create')}}" class="btn btn-primary pull-right"><i
                                     class="fa fa-plus"> Add</i></a>
                     </p>
                 </div>
@@ -23,47 +23,41 @@
                     <tr>
                         <th class="text-center">SN <i class="fa fa-sort"></i></th>
                         <th> Title <i class="fa fa-sort"></i></th>
-                        <th class="text-center">Published Date <i class="fa fa-sort"></i></th>
+                        <th class="text-center">Social media <i class="fa fa-sort"></i></th>
+                        <th class="text-center">Link <i class="fa fa-sort"></i></th>
                         <th class="text-center">Status <i class="fa fa-sort"></i></th>
                         <th class="text-center">order <i class="fa fa-sort"></i></th>
                         <th class="text-center">Action <i class="fa fa-sort"></i></th>
                     </tr>
                     </thead>
                     <tbody>
-                    @if(!$data['rows']->isEmpty())
                         <?php $i = 1; ?>
                         @foreach($data['rows'] as $row)
                             <tr>
                                 <td align="center">{{$i++}}</td>
                                 <td>{{$row->title}}</td>
-                                <td align="center">{{$row->date}}</td>
+                                <td align="center">{{$row->social}}</td>
+                                <td align="center">{{$row->link}}</td>
                                 <td align="center">@if($row->status == 1) {{'Published'}} @else{{'Drafted'}} @endif</td>
                                 <td align="center">{{$row->order}}</td>
 
                                 <td align="center">
-                                    {!! Form::model($row,array('route'=>['headings.destroy',$row->id],'method'=>'delete','id'=>'form'.$row->id,'enctype'=>'multipart/form-data')) !!}
+                                    {!! Form::model($row,array('route'=>['literature.destroy',$row->id],'method'=>'delete','id'=>'form'.$row->id,'enctype'=>'multipart/form-data')) !!}
 
-                                    {{--@if (AppHelper::isRouteAccessable('headings.edit'))--}}
-                                    <a href="{{route('headings.edit',$row->id)}}" class="btn btn-primary"><i
+                                    {{--@if (AppHelper::isRouteAccessable('literature.edit'))--}}
+                                    <a href="{{route('literature.edit',$row->id)}}" class="btn btn-primary"><i
                                                 class="glyphicon glyphicon-edit"></i></a>
 
                                     {{--@endif--}}
-                                    {{--                                    @if (AppHelper::isRouteAccessable('headings.destroy'))--}}
+                                    {{--                                    @if (AppHelper::isRouteAccessable('literature.destroy'))--}}
                                     <button type="submit" form="{{'form'.$row->id}}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
                                     {{--@endif--}}
                                     {!! Form::close() !!}
                                 </td>
-
                             </tr>
                         @endforeach
-                    @else
-                        <tr>
-                            <td colspan="7" class="text-center">No Data Available</td>
-                        </tr>
-                    @endif
                     </tbody>
                 </table>
-                {{ $data['rows']->links() }}
             </div>
         </div>
     </div>

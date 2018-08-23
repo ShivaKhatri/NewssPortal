@@ -6,7 +6,7 @@
     @endif
     <div class="row">
         <div class="col-sm-12 col-lg-12">
-            <h2>Blog Posts</h2>
+            <h2>Breaking News</h2>
 <hr>
             <div class="row">
                 <div class="col-sm-12 col-xs-12">

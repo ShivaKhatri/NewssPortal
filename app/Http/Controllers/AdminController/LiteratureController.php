@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class TestomonialController extends AdminBaseController
+class LiteratureController extends AdminBaseController
 {
     protected $model;
-    protected $base_route = 'testimonials.index';
+    protected $base_route = 'literature.index';
     protected $view_path = 'backend.testimonials';
 
     /**
@@ -20,7 +20,7 @@ class TestomonialController extends AdminBaseController
      */
     public function __Construct()
     {
-        $this->image_url = 'assets/uploads/testimonial/';
+        $this->image_url = 'assets/uploads/literature/';
     }
 
     /**
@@ -31,7 +31,7 @@ class TestomonialController extends AdminBaseController
     public function index()
     {
         $data = [];
-        $data['rows'] =Testimonials::all()->where('type','=','voice');
+        $data['rows'] =Testimonials::all()->where('type','=','literature');;
         return view($this->view_path . '.index', compact('data'));
     }
 
@@ -74,7 +74,7 @@ class TestomonialController extends AdminBaseController
             $data->message = $request->message;
             $data->social=$request->social;
             $data->link= $request->link;
-            $data->type= 'voice';
+            $data->type= 'literature';
             $data->order= $request->order;
         $data->status = $request->status;
 
@@ -90,7 +90,7 @@ class TestomonialController extends AdminBaseController
             $data->save();
         }
 
-        AppHelper::flash('success', trans('Well Done! Testimonial  Created Successfully'));
+        AppHelper::flash('success', trans('Well Done! Literature  Created Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -109,7 +109,7 @@ class TestomonialController extends AdminBaseController
         $data = [];
         $data['row'] = $this->model;
         $social=SocialNetwork::all()->pluck('social_network','id')->toArray();
-        AppHelper::flash('success', trans('Well Done! Testimonial  Edited Successfully'));
+        AppHelper::flash('success', trans('Well Done! Literature  Edited Successfully'));
         return view($this->view_path . '.edit', compact('data','social'));
     }
 
@@ -143,7 +143,7 @@ class TestomonialController extends AdminBaseController
         $data->message = $request->message;
         $data->social=$request->social;
         $data->link= $request->link;
-        $data->type= 'voice';
+        $data->type= 'literature';
 
         $data->order= $request->order;
         $data->status = $request->status;
@@ -159,7 +159,7 @@ class TestomonialController extends AdminBaseController
             $data->save();
 
         }
-        AppHelper::flash('success', trans('Well Done! News Testimonial Edited Successfully'));
+        AppHelper::flash('success', trans('Well Done! News Literature Edited Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -186,7 +186,7 @@ class TestomonialController extends AdminBaseController
             }
         }
         Testimonials::destroy($id);
-        AppHelper::flash('success', trans('Well Done! News Testimonial Deleted Successfully'));
+        AppHelper::flash('success', trans('Well Done! News Literature Deleted Successfully'));
 
         return redirect()->route($this->base_route);
     }

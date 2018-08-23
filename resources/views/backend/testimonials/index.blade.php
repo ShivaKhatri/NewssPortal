@@ -6,7 +6,7 @@
     @endif
     <div class="row">
         <div class="col-sm-12 col-lg-12">
-            <h2>Images</h2>
+            <h2> Voice Of People</h2>
 <hr>
             <div class="row">
                 <div class="col-sm-12 col-xs-12">

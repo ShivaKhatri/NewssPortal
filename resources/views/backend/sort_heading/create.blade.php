@@ -1,9 +1,9 @@
 @extends('backend.layout.main')
-@section('title','Create sort headings')
+@section('title','Create Sort headings')
 @section('content')
     <div class="row">
         <div class="col-sm-10 col-sm-offset-2 col-lg-10">
-            <h2><a href="{{route('headings.index')}}"> Blog sort headings </a> ≫
+            <h2><a href="{{route('headings.index')}}">  Sort headings </a> ≫
                 <small>@yield('title')</small>
             </h2>
             @if (session()->has('message'))

@@ -40,6 +40,11 @@ Route::group(['prefix' => '', 'middleware' => 'auth'], function () {
 
     Route::resource('testimonials','AdminController\TestomonialController');
 
+
+    Route::get('literature/status', ['as' => 'testimonials.status', 'uses' => 'AdminController\TestomonialController@status']);
+
+    Route::resource('literature','AdminController\TestomonialController');
+
     Route::get('videos/status', ['as' => 'videos.status', 'uses' => 'AdminController\VideoController@status']);
 
     Route::resource('videos','AdminController\VideoController');
@@ -47,6 +52,9 @@ Route::group(['prefix' => '', 'middleware' => 'auth'], function () {
     Route::get('headings/status', ['as' => 'headings.status', 'uses' => 'AdminController\SortHeadingController@status']);
 
     Route::resource('headings','AdminController\SortHeadingController');
+
+    Route::get('/Password', ['as' => 'password', 'uses' => 'AdminController\ChangePasswordController@changePassword']);
+    Route::post('/changePassword/{id}', ['as' => 'password.change', 'uses' => 'AdminController\ChangePasswordController@passwordUpdate']);
 
 });
 Auth::routes();

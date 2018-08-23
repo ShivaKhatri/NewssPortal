@@ -5,7 +5,7 @@
     <div class="x_panel">
         <div class="x_title"
         >
-            <h2>KeyTable example <small>Users</small></h2>
+            <h2>News Category</h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
@@ -60,14 +60,10 @@
                                 <td>
                                     {!! Form::model($row,array('route'=>['categories.destroy',$row->id],'method'=>'delete','id'=>'form'.$row->id,'enctype'=>'multipart/form-data')) !!}
 
-                                {{--@if (AppHelper::isRouteAccessable('categories.edit'))--}}
                                         <a href="{{route('categories.edit',$row->id)}}" class="btn btn-primary"><i
                                                     class="glyphicon glyphicon-edit"></i></a>
 
-                                    {{--@endif--}}
-{{--                                    @if (AppHelper::isRouteAccessable('categories.destroy'))--}}
                                             <button type="submit" form="{{'form'.$row->id}}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
-                                    {{--@endif--}}
                                     {!! Form::close() !!}
 
                                 </td>
