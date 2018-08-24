@@ -1,25 +1,28 @@
 @extends('backend.layout.main')
 
 @section('content')
-    @if (session()->has('message'))
-        {!! session()->get('message') !!}
-    @endif
-    <div class="row">
-        <div class="col-sm-12 col-lg-12">
-            <h2>Breaking News</h2>
-<hr>
+
+    <div class="x_panel">
+        <div class="x_title"
+        >
+            <h2>Main Story</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                <a href="{{route('BreakingNews.create')}}"><button class="btn btn-success"><li><i class="fa fa-plus">Add</i>
+                        </li></button></a>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        @if (session()->has('message'))
+            <em>{!! session()->get('message') !!}</em>
+        @endif
+        <div class="x_content">
             <div class="row">
-                <div class="col-sm-12 col-xs-12">
-                    <p>
-                        <a href="{{route('BreakingNews.create')}}" class="btn btn-primary pull-right"><i
-                                    class="fa fa-plus"> Add</i></a>
-                    </p>
-                </div>
-            </div>
-            <div class="clealfix"></div>
-            <div class="table-responsive">
-                <table class="table table-hover table-striped table-sorter table-responsive">
-                    <thead>
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                        <table id="datatable-keytable" class="table table-striped table-bordered">
+                            <thead>
                     <tr>
                         <th class="text-center">SN <i class="fa fa-sort"></i></th>
                         <th> Title <i class="fa fa-sort"></i></th>

@@ -16,6 +16,15 @@
  'enctype' => "multipart/form-data",
 ])
 !!}
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <label class="control-label">News Category</label>
+                        {{ Form::select('category_id',[''=>'Select News Category']+$category,null, array('class' => 'form-control col-md-7 col-xs-12')) }}
+
+                    </div>
+                </div>
+            </div>
                 <div class="row">
                     <div class="col-sm-10">
                         <div class="form-group">

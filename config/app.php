@@ -161,6 +161,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        willvincent\Feeds\FeedsServiceProvider::class,
+        YahooWeather\Weather\PHPAnonymousYahooWeather::class,
 
     ],
 
@@ -176,7 +178,8 @@ return [
     */
 
     'aliases' => [
-
+        'YahooWeather' => YahooWeather\Weather\AnonyControllerYahooWeather::class,
+        'Feeds'    => willvincent\Feeds\Facades\FeedsFacade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,

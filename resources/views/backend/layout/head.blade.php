@@ -8,46 +8,41 @@
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
-                        {{--@if(Auth::user())--}}
-                            {{--<img class="nav-user-photo"--}}
-                                 {{--src="{{ asset(config('impact.url.frontend.image').'users').'/'. Auth::user()->picture }} "--}}
-                                 {{--alt="{{ucfirst(Auth::user()->name)}}"/>{{ Auth::user()->name }}--}}
-                        {{--@endif--}}
+                        @if(Auth::user())
+                            <img class="nav-user-photo"
+                                 src="{{ asset('assets/uploads/userProfile'.'/user-28-512.png') }} "
+                                 alt="{{ucfirst(Auth::user()->name)}}"/>{{ Auth::user()->name }}
+                        @endif
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        {{--<li><a href="javascript:;"> Profile</a></li>--}}
-                        {{--<li>--}}
-                        {{--<a href="javascript:;">--}}
-                        {{--<span>Settings</span></a>--}}
-                        {{--<ul class="nav child_menu">--}}
-                        {{--@if (AppHelper::isRouteAccessable('admin.import_file'))--}}
-                        {{--<li><a href="{{route('admin.import_file', \Auth::user()->name)}}"> Import Files </a></li>--}}
-                        {{--@endif--}}
-                        {{--<li><a href="#">About Us</a></li>--}}
-                        {{--</ul>--}}
-                        {{--</li>--}}
-                        <li>
-{{--                            <a href="{{route('admin.academy.user.profile', [Auth::user()->id])}}">--}}
-                                <span> Admin Profile</span>
-                            {{--</a>--}}
-                        </li>
-                        <li>
-{{--                            <a href="{{route('admin.users.change_password', \Auth::user()->name)}}">--}}
-                                <span>Reset Password</span>
-                            {{--</a>--}}
-                        </li>
-                        <li>
-                            {{--<a href="{{ route('logout') }}"--}}
-                               {{--onclick="event.preventDefault();--}}
-                                         {{--document.getElementById('logout-form').submit();">--}}
-                                {{--Logout--}}
-                            {{--</a>--}}
+                            {{--<li><a href="javascript:;"> Profile</a></li>--}}
+                            {{--<li>--}}
+                            {{--<a href="javascript:;">--}}
+                            {{--<span>Settings</span></a>--}}
+                            {{--<ul class="nav child_menu">--}}
+                            {{--@if (AppHelper::isRouteAccessable('admin.import_file'))--}}
+                            {{--<li><a href="{{route('admin.import_file', \Auth::user()->name)}}"> Import Files </a></li>--}}
+                            {{--@endif--}}
+                            {{--<li><a href="#">About Us</a></li>--}}
+                            {{--</ul>--}}
+                            {{--</li>--}}
+                            <li>
+                                <a href="{{route('password', \Auth::user()->id)}}">
+                                    <span>Reset Password</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
 
-                            {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-                                {{--{{ csrf_field() }}--}}
-                            {{--</form>--}}
-                        </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
                     </ul>
                 </li>
             </ul>

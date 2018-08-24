@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminController;
 
 use App\Facades\AppHelper;
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,9 +29,12 @@ class ArticleController extends AdminBaseController
     public function index()
     {
         $data = [];
-        $data['rows'] = Article::select('id', 'title', 'status' , DB::raw("DATE_FORMAT(created_at,'%M %d, %Y') as date") )
-            ->orderBy('created_at', 'desc')
-            ->paginate(15);
+        $data['rows'] = Article::select('articles.id', 'articles.title', 'articles.status' ,
+            DB::raw("DATE_FORMAT(articles.created_at,'%M %d, %Y') as date"),'categories.name as category'  )
+            ->leftJoin('categories','categories.id','=','articles.category_id')
+            ->orderBy('articles.created_at', 'desc')
+            ->paginate(10);
+
         return view($this->view_path . '.index', compact('data'));
     }
 
@@ -39,7 +43,8 @@ class ArticleController extends AdminBaseController
      */
     public function create()
     {
-        return view($this->view_path . '.create', compact('data'));
+        $category=Category::all()->pluck('name','id')->toArray();
+        return view($this->view_path . '.create', compact('data','category'));
     }
 
     /**
@@ -51,6 +56,8 @@ class ArticleController extends AdminBaseController
 //        dd($request->article);
         $this->validate($request, [
             'title' => 'required',
+            'category_id' => 'required',
+
             'file' => 'mimes:jpg,jpeg,png|max:1024',
             'article' => 'required',
         ], $messages = [
@@ -61,6 +68,7 @@ class ArticleController extends AdminBaseController
         $data=new Article();
         $data->title= $request->title;
         $data->article= $request->article;
+        $data->category_id= $request->category_id;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
 
@@ -90,8 +98,9 @@ class ArticleController extends AdminBaseController
         }
         $data = [];
         $data['row'] = $this->model;
+        $category=Category::all()->pluck('name','id')->toArray();
 
-        return view('backend.article.edit', compact('data'));
+        return view('backend.article.edit', compact('data','category'));
     }
 
     /**
@@ -103,6 +112,7 @@ class ArticleController extends AdminBaseController
     {
         $this->validate($request, [
             'title' => 'required',
+            'category_id' => 'required',
             'file' => 'mimes:jpg,jpeg,png|max:1024',
             'article' => 'required',
         ],
@@ -118,6 +128,8 @@ class ArticleController extends AdminBaseController
         $data=Article::find($id);
         $data->title= $request->title;
         $data->article= $request->article;
+        $data->category_id= $request->category_id;
+
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
         if (!file_exists($this->image_url)) {

@@ -10,12 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
-//Route::get('/login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
-//Route::get('/register', ['as' => 'register', 'uses' => 'Auth\RegisterController@register']);
+Route::get('/register', ['as' => 'register', 'uses' => 'Auth\RegisterController@register']);
 
 Route::group(['prefix' => '', 'middleware' => 'auth'], function () {
     Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'AdminController\DashboardController@index']);
@@ -57,6 +57,3 @@ Route::group(['prefix' => '', 'middleware' => 'auth'], function () {
     Route::post('/changePassword/{id}', ['as' => 'password.change', 'uses' => 'AdminController\ChangePasswordController@passwordUpdate']);
 
 });
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

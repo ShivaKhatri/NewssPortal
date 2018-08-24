@@ -21,6 +21,7 @@ class CreateArticlesTable extends Migration
             $table->string('image')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->integer('admin_id')->unsigned();
+            $table->integer('category_id')->unsigned();
         });
     }
 
