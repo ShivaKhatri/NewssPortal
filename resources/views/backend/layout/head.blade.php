@@ -10,7 +10,7 @@
                        aria-expanded="false">
                         @if(Auth::user())
                             <img class="nav-user-photo"
-                                 src="{{ asset('assets/uploads/userProfile'.'/user-28-512.png') }} "
+                                 src="{{ asset('assets/uploads/userProfile'.'/user.png') }} "
                                  alt="{{ucfirst(Auth::user()->name)}}"/>{{ Auth::user()->name }}
                         @endif
                         <span class=" fa fa-angle-down"></span>

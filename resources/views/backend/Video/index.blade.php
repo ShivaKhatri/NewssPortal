@@ -38,7 +38,7 @@
                         @foreach($data['rows'] as $row)
                             <tr>
                                 <td align="center">{{$i++}}</td>
-                                <td>{{$row->title}}</td>
+                                <td>{{$row->name}}</td>
                                 <td align="center">{{$row->date}}</td>
                                 <td align="center">@if($row->status == 1) {{'Published'}} @else{{'Drafted'}} @endif</td>
                                 <td align="center">{{$row->order}}</td>

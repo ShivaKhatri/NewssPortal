@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> {{ config('app.name') }} </title>
-    <link rel="icon" href="{{asset('assets/images/favicons/32x32-fabicon.png')}}">
+    <!--
+                    To change Tab Icon Change the Path Down there  ;) 
+    -->
+    <link rel="icon" href="{{asset('backend/images/download.jpg')}}">
     <!-- Bootstrap -->
     <link href="{{ asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
@@ -72,7 +75,7 @@
         </div>
         <footer>
             <div class="pull-left">
-                Copyright 2018 &copy <a href="http://www.kakaaki.org" target="_blank">kakaaki.org</a>
+                Copyright 2018 &copy
             </div>
             <div class="pull-right">
                 Powered By: <a href="http://www.impactit.org" target="_blank"> IMPACT IT</a>
