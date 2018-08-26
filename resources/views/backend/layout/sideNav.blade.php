@@ -43,6 +43,9 @@
                             <li><a href="{{route('literature.index')}}"><i class="fa fa-users"></i> Literature Review
                                     <span class="label label-success"></span></a>
                             </li>
+                            <li><a href="{{route('ads.index')}}"><i class="fa fa-money"></i> Ads
+                                    <span class="label label-success"></span></a>
+                            </li>
 
 
 

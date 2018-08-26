@@ -4,13 +4,49 @@
 
 
 
-
-<p><strong> THIS IS THE HOME PAGE</strong></p>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            {{-- User Statistics Section --}}
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row tile_count text-center">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <span class="count_top"><i class="fa fa-2x fa-users green"></i>&nbsp; Main Stories </span>
+                            <div class="count blue">{{$mainstories}}</div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <span class="count_top"><i class="fa fa-2x fa-users green"></i>&nbsp; Breaking News </span>
+                            <div class="count blue">{{$breakingNews}}</div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <span class="count_top"><i class="fa fa-2x fa-home green"></i>&nbsp; Voice Of People </span>
+                            <div class="count red">{{$voice}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row tile_count text-center">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <span class="count_top"><i class="fa fa-2x fa-users green"></i>&nbsp;Literature Reviews</span>
+                            <div class="count blue">{{ $literature }}</div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <span class="count_top"><i class="fa fa-2x fa-inbox green"></i>&nbsp;Released Image Of Month</span>
+                            <div class="count blue">{{ $imageOfMonth }}</div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <span class="count_top"><i class="fa fa-2x fa-send-o green"></i>&nbsp; Released Videos</span>
+                            <div class="count red">{{ $videos }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
 <div class="header">
-    <a class="weatherwidget-io" href="https://forecast7.com/en/27d7285d32/kathmandu/" data-label_1="KATHMANDU" data-label_2="WEATHER" data-theme="original" >KATHMANDU WEATHER</a>
-    <script>
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-    </script>
     <h1><a href="{{ $data['permalink'] }}">{{ $data['title']  }}</a></h1>
 </div>
 
@@ -22,4 +58,5 @@
     </div>
 
     @endforeach
+
 @endsection

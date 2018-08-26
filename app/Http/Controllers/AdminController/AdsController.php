@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\AdminController;
 
 use App\Facades\AppHelper;
-use App\Models\Image;
+use App\Models\Ad;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ImageController extends Controller
+class AdsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +17,15 @@ class ImageController extends Controller
      * @return \Illuminate\Http\Response
      */
     protected $model;
-    protected $base_route = 'images.index';
-    protected $view_path = 'backend.image';
+    protected $base_route = 'ads.index';
+    protected $view_path = 'backend.ads';
 
     /**
      * PostController constructor.
      */
     public function __Construct()
     {
-        $this->image_url = 'assets/uploads/image/';
+        $this->image_url = 'assets/uploads/ads/';
     }
 
     /**
@@ -34,8 +34,7 @@ class ImageController extends Controller
     public function index()
     {
         $data = [];
-        $data['rows'] = Image::select('id', 'title', 'status' ,'order', DB::raw("DATE_FORMAT(created_at,'%M %d, %Y') as date") )
-            ->orderBy('order', 'asc')
+        $data['rows'] = Ad::select('id', 'title', 'status' , DB::raw("DATE_FORMAT(created_at,'%M %d, %Y') as date") )
             ->paginate(15);
         return view($this->view_path . '.index', compact('data'));
     }
@@ -54,21 +53,17 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->Image);
+//        dd($request->Ad);
         $this->validate($request, [
             'title' => 'required',
-            'order' => 'required',
             'file' => 'mimes:jpg,jpeg,png|max:1024',
-            'description' => 'required',
         ], $messages = [
             'required' => 'The :attribute field is required.',
-            'mimes' => 'Only JPG/JPEG and PNG images are accepted!',
-            'max' => 'Image Size must be less than 1024 KB'
+            'mimes' => 'Only JPG/JPEG and PNG ads are accepted!',
+            'max' => 'Ad Size must be less than 1024 KB'
         ]);
-        $data=new Image();
+        $data=new Ad();
         $data->title= $request->title;
-        $data->description= $request->description;
-        $data->order= $request->order;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
 
@@ -82,7 +77,7 @@ class ImageController extends Controller
             $data->image = $file_name;
             $data->save();
         }
-        AppHelper::flash('success', trans('Well Done! News Image Created Successfully'));
+        AppHelper::flash('success', trans('Well Done!  Ad Created Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -96,10 +91,10 @@ class ImageController extends Controller
         if (!$this->idExist($id)) {
             return redirect()->route($this->base_route)->with('alert-danger', 'Invalid Id');
         }
-        $data = [];
-        $data['row'] = $this->model;
+        $data = Ad::find($id);
 
-        return view('backend.image.edit', compact('data'));
+
+        return view('backend.ads.edit', compact('data'));
     }
 
     /**
@@ -112,20 +107,18 @@ class ImageController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'file' => 'mimes:jpg,jpeg,png|max:1024',
-            'order' => 'required',
         ],
             $messages = [
                 'required' => 'The :attribute field is required.',
                 'mimes' => 'Only JPG/JPEG and PNG images are accepted!',
-                'max' => 'Image Size must be less than 1024 KB'
+                'max' => 'Ad Size must be less than 1024 KB'
             ]
         );
         if (!$this->idExist($id)) {
             return redirect()->route($this->base_route)->with('alert-danger', 'Invalid Id');
         }
-        $data=Image::find($id);
+        $data=Ad::find($id);
         $data->title= $request->title;
-        $data->order= $request->order;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
         if (!file_exists($this->image_url)) {
@@ -147,7 +140,7 @@ class ImageController extends Controller
             $data->image = $file_name;
             $data->save();
         }
-        AppHelper::flash('success', trans('Well Done! News Image Edited Successfully'));
+        AppHelper::flash('success', trans('Well Done!  Ad Edited Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -162,7 +155,7 @@ class ImageController extends Controller
             return redirect()->route($this->base_route)->with('alert-danger', 'Invalid Id');
         }
 
-        $data = Image::find($id);
+        $data = Ad::find($id);
         //remove image
         if (!empty($data->image) && file_exists($this->image_url . $data->image)) {
             $file_path = $this->image_url . $data->image;
@@ -171,8 +164,8 @@ class ImageController extends Controller
                 unlink($file_path);
             }
         }
-        Image::destroy($id);
-        AppHelper::flash('success', trans('Well Done! News Image Deleted Successfully'));
+        Ad::destroy($id);
+        AppHelper::flash('success', trans('Well Done!  Ad Deleted Successfully'));
 
         return redirect()->route($this->base_route);
     }
@@ -191,7 +184,7 @@ class ImageController extends Controller
      */
     protected function idExist($id)
     {
-        $this->model = Image::find($id);
+        $this->model = Ad::find($id);
         return $this->model;
     }
 }

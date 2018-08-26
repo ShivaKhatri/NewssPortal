@@ -53,6 +53,10 @@ Route::group(['prefix' => '', 'middleware' => 'auth'], function () {
 
     Route::resource('headings','AdminController\SortHeadingController');
 
+    Route::get('ads/status', ['as' => 'ads.status', 'uses' => 'AdminController\AdsController@status']);
+
+    Route::resource('ads','AdminController\AdsController');
+
     Route::get('/Password', ['as' => 'password', 'uses' => 'AdminController\ChangePasswordController@changePassword']);
     Route::post('/changePassword/{id}', ['as' => 'password.change', 'uses' => 'AdminController\ChangePasswordController@passwordUpdate']);
 
