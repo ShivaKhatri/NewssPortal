@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> {{ config('app.name') }} </title>
     <!--
-                    To change Tab Icon Change the Path Down there  ;) 
+                    To change Tab Icon Change the Path Down there  ;)
     -->
     <link rel="icon" href="{{asset('backend/images/download.jpg')}}">
     <!-- Bootstrap -->

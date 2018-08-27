@@ -57,7 +57,13 @@ Route::group(['prefix' => '', 'middleware' => 'auth'], function () {
 
     Route::resource('ads','AdminController\AdsController');
 
+    Route::resource('contacts','AdminController\ContactController');
+
+    Route::resource('members','AdminController\FacultyMemberController');
+
     Route::get('/Password', ['as' => 'password', 'uses' => 'AdminController\ChangePasswordController@changePassword']);
     Route::post('/changePassword/{id}', ['as' => 'password.change', 'uses' => 'AdminController\ChangePasswordController@passwordUpdate']);
 
 });
+
+

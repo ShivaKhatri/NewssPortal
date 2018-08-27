@@ -11,6 +11,7 @@
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.2.0",
+        "unisharp/laravel-filemanager": "~1.8",
         "willvincent/feeds": "^1.1",
         "yahooweather/weather": "dev-master"
     },
