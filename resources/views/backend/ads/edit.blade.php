@@ -25,6 +25,14 @@
                         </div>
                     </div>
                 </div>
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <label class="control-label">Order</label>
+                        <input class="form-control" type="text" name="order" value="{{$data->order}}" required/>
+                    </div>
+                </div>
+            </div>
                 <div class="row">
                     <div class="col-sm-10">
                         <div class="form-group">

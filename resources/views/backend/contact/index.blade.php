@@ -2,35 +2,33 @@
 @section('title','Contact')
 @section('content')
 
-    <div class="row">
-        <div class="col-sm-12 col-lg-12">
-            <h2>Contact</h2>
-            @foreach(['success', 'danger', 'info', 'warning'] as $msg)
-                @if(Session::has('alert-' . $msg))
-                    <p class="alert alert-{{$msg}}">{{Session::get('alert-' . $msg)}}<a href="#" class="close"
-                                                                                        data-dismiss="alert"
-                                                                                        aria-label="close">&times;</a>
-                    </p>
-                @endif
-            @endforeach
+    <div class="x_panel">
+        <div class="x_title"
+        >
+            <h2>Contact Information</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                <a href="{{route('contacts.create')}}"><button class="btn btn-success"><li><i class="fa fa-plus">Add</i>
+                        </li></button></a>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        @if (session()->has('message'))
+            <em>{!! session()->get('message') !!}</em>
+        @endif
+        <div class="x_content">
             <div class="row">
-                <div class="col-sm-12 col-xs-12">
-                    <p>
-                        <a href="{{route('contacts.create')}}" class="btn btn-primary pull-right"><i
-                                    class="fa fa-plus"> Add</i></a>
-                    </p>
-                </div>
-            </div>
-            <div class="clealfix"></div>
-            <div class="table-responsive">
-                <table class="table table-hover table-striped tablesorter">
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                        <table id="datatable-keytable" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th width="5%">SN <i class="fa fa-sort"></i></th>
-                        <th width="25%">Email <i class="fa fa-sort"></i></th>
-                        <th width="25%">Address <i class="fa fa-sort"></i></th>
-                        <th width="25%">Contact No. <i class="fa fa-sort"></i></th>
-                        <th width="15%">Action <i class="fa fa-sort"></i></th>
+                       <th class="text-center">SN <i class="fa fa-sort"></i></th>
+                       <th class="text-center">Email <i class="fa fa-sort"></i></th>
+                       <th class="text-center">Address <i class="fa fa-sort"></i></th>
+                       <th class="text-center">Contact No. <i class="fa fa-sort"></i></th>
+                       <th class="text-center">Action <i class="fa fa-sort"></i></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,19 +36,22 @@
                         <?php $i = 1; ?>
                         @foreach($data['rows'] as $row)
                             <tr>
-                                <td>{{$i++}}</td>
-                                <td>{{$row->email}}</td>
-                                <td>{{$row->address}}</td>
-                                <td>{{$row->contact_no}}</td>
-                                <td>
-                                    <a class="btn btn-default btn-xs"
-                                       href="{{route('contacts.edit',['id' => $row->id])}}"><i
-                                                class="fa fa-pencil"></i>
-                                        Edit</a>
-                                    <a class="btn btn-danger btn-xs"
-                                       href="{{route('contacts.destroy',['id'=> $row->id])}}"><i
-                                                class="fa fa-trash-o"></i>
-                                        Delete</a>
+                                <td align="center">{{$i++}}</td>
+                                <td align="center">{{$row->email}}</td>
+                                <td align="center">{{$row->address}}</td>
+                                <td align="center">{{$row->contact_no}}</td>
+                                <td align="center">
+                                    {!! Form::model($row,array('route'=>['contacts.destroy',$row->id],'method'=>'delete','id'=>'form'.$row->id,'enctype'=>'multipart/form-data')) !!}
+
+                                    {{--@if (AppHelper::isRouteAccessable('article.edit'))--}}
+                                    <a href="{{route('contacts.edit',$row->id)}}" class="btn btn-primary"><i
+                                                class="glyphicon glyphicon-edit"></i></a>
+
+                                    {{--@endif--}}
+                                    {{--                                    @if (AppHelper::isRouteAccessable('article.destroy'))--}}
+                                    <button type="submit" form="{{'form'.$row->id}}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                                    {{--@endif--}}
+                                    {!! Form::close() !!}
                                 </td>
                             </tr>
                         @endforeach

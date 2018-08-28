@@ -28,6 +28,7 @@
                         <th> Title <i class="fa fa-sort"></i></th>
                         <th class="text-center">Published Date <i class="fa fa-sort"></i></th>
                         <th class="text-center">Status <i class="fa fa-sort"></i></th>
+                        <th class="text-center">Order <i class="fa fa-sort"></i></th>
                         <th class="text-center">Action <i class="fa fa-sort"></i></th>
                     </tr>
                     </thead>
@@ -40,6 +41,7 @@
                                 <td>{{$row->title}}</td>
                                 <td align="center">{{$row->date}}</td>
                                 <td align="center">@if($row->status == 1) {{'Published'}} @else{{'Drafted'}} @endif</td>
+                                <td align="center">{{$row->order}}</td>
 
                                 <td align="center">
                                     {!! Form::model($row,array('route'=>['ads.destroy',$row->id],'method'=>'delete','id'=>'form'.$row->id,'enctype'=>'multipart/form-data')) !!}

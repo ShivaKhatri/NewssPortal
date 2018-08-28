@@ -34,7 +34,7 @@ class AdsController extends Controller
     public function index()
     {
         $data = [];
-        $data['rows'] = Ad::select('id', 'title', 'status' , DB::raw("DATE_FORMAT(created_at,'%M %d, %Y') as date") )
+        $data['rows'] = Ad::select('id','order', 'title', 'status' , DB::raw("DATE_FORMAT(created_at,'%M %d, %Y') as date") )
             ->paginate(15);
         return view($this->view_path . '.index', compact('data'));
     }
@@ -64,6 +64,7 @@ class AdsController extends Controller
         ]);
         $data=new Ad();
         $data->title= $request->title;
+        $data->order= $request->order;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
 
@@ -118,6 +119,7 @@ class AdsController extends Controller
             return redirect()->route($this->base_route)->with('alert-danger', 'Invalid Id');
         }
         $data=Ad::find($id);
+        $data->order= $request->order;
         $data->title= $request->title;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;

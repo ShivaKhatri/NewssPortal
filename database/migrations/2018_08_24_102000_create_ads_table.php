@@ -20,6 +20,7 @@ class CreateAdsTable extends Migration
             $table->string('image');
             $table->tinyInteger('status')->default(1);
             $table->integer('admin_id')->unsigned();
+            $table->integer('order');
         });
     }
 

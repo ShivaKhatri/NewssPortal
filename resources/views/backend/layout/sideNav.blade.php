@@ -46,10 +46,10 @@
                             <li><a href="{{route('ads.index')}}"><i class="fa fa-money"></i> Ads
                                     <span class="label label-success"></span></a>
                             </li>
-                            <li><a href="{{route('contacts.index')}}"><i class="fa fa-info-circle"></i> Ads
+                            <li><a href="{{route('contacts.index')}}"><i class="fa fa-info-circle"></i>Contact Information
                                     <span class="label label-success"></span></a>
                             </li>
-                            <li><a href="{{route('members.index')}}"><i class="fa fa-user-circle-o"></i> Ads
+                            <li><a href="{{route('members.index')}}"><i class="fa fa-user-secret"></i>Members
                                     <span class="label label-success"></span></a>
                             </li>
 

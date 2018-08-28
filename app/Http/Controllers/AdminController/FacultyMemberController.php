@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\AdminController;
 
+use App\Facades\AppHelper;
 use App\Models\FacultyMember;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Input;
 
-class FacultyMemberController extends Controller
+class FacultyMemberController extends AdminBaseController
 {
     protected $model;
-    protected $base_route = 'member.index';
+    protected $base_route = 'members.index';
     protected $view_path = 'backend.faculty_member';
 
     /**
@@ -54,7 +53,6 @@ class FacultyMemberController extends Controller
         $data = [];
         $this->validate($request, [
             'name' => 'required',
-            'title' => 'required',
             'file' => 'mimes:jpg,jpeg,png|max:1024|required',
             'designation' => 'required',
         ],
@@ -68,7 +66,6 @@ class FacultyMemberController extends Controller
         $data['row'] = FacultyMember::create([
             'name' => $request->name,
             'designation' => $request->designation,
-            'title' => $request->title,
             'message' => $request->message,
         ]);
         if (!file_exists($this->image_url)) {
@@ -80,8 +77,9 @@ class FacultyMemberController extends Controller
             $data['row']->image = $file_name;
             $data['row']->save();
         }
+        AppHelper::flash('success', trans('Well Done! New Member Created Successfully'));
 
-        return redirect()->route($this->base_route)->with('alert-success', 'Saved successfully');
+        return redirect()->route($this->base_route);
     }
 
     /**
@@ -126,7 +124,6 @@ class FacultyMemberController extends Controller
         $data->update([
             'name' => $request->name,
             'designation' => $request->designation,
-            'title' => $request->title,
             'message' => $request->message,
         ]);
         if (!file_exists($this->image_url)) {
@@ -147,7 +144,9 @@ class FacultyMemberController extends Controller
             $data->image = $file_name;
             $data->save();
         }
-        return redirect()->route($this->base_route)->with('alert-success', 'Updated Successfully');
+        AppHelper::flash('success', trans('Well Done! Member Edited Successfully'));
+
+        return redirect()->route($this->base_route);
     }
 
     /**
@@ -156,7 +155,7 @@ class FacultyMemberController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function destroy($id)
     {
         if (!$this->idExist($id)) {
             return redirect()->route($this->base_route)->with('alert-danger', 'Invalid Id');
@@ -172,7 +171,9 @@ class FacultyMemberController extends Controller
             }
         }
         $data::destroy($id);
-        return redirect()->route($this->base_route)->with('alert-success', 'Deleted Successfully');
+
+        AppHelper::flash('warning', trans('Well Done! Member Deleted Successfully'));
+        return redirect()->route($this->base_route);
     }
 
     /**
