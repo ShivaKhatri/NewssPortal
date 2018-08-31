@@ -6,13 +6,13 @@
             <h2><a href="{{route('article.index')}}"> Main Stories</a> ≫
                 <small>@yield('title')</small>
             </h2>
-            {!! Form::model($data['row'], [
- 'route' => ['article.update', $data['row']->id, 'class' =>"form-horizontal form-label-left"],
+            {!! Form::model($data, [
+ 'route' => ['article.update', $data->id],
  'method' => 'PUT',
  'id' => 'demo-form2',
    'data-parsley-validate'=>'',
+   'class' =>"form-horizontal form-label-left",
    'novalidate'=>'',
-   'class' => 'form-horizontal form-label-left',
  'enctype' => "multipart/form-data",
 ])
 !!}
@@ -29,7 +29,7 @@
                     <div class="col-sm-10">
                         <div class="form-group">
                             <label class="control-label">Title</label>
-                            <input class="form-control" type="text" name="title" value="{{$data['row']->title}}"
+                            <input class="form-control" type="text" name="title" value="{{$data->title}}"
                                    required/>
                         </div>
                     </div>
@@ -38,10 +38,10 @@
                     <div class="col-sm-10">
                         <div class="form-group">
                             <label class="control-label">Image</label>
-                            <input class="form-control" type="file" name="file" accept="image/*"/>
+                            <input class="form-control" type="file" name="file" accept="image/*" value="{{asset('assets/uploads/post/'.$data->image)}}"/>
                         </div>
-                        @if(!empty($data['row']->image))
-                            <img src="{{asset('assets/uploads/post/'.$data['row']->image)}}" height="200" width="200"/>
+                        @if(!empty($data->image))
+                            <img src="{{asset('assets/uploads/post/'.$data->image)}}" height="200" width="200"/>
                         @endif
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                         <div class="form-group">
                             <label class="control-label">Description</label>
                             <textarea rows="10" class="form-control" type="text"
-                                      name="article">{{$data['row']->article}}</textarea>
+                                      name="article">{{$data->article}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -62,14 +62,14 @@
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="status" id="optionsRadios1" value="1"
-                                           @if($data['row']->status == 1)checked @endif>
+                                           @if($data->status == 1)checked @endif>
                                     Publish
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="status" id="optionsRadios2" value="0"
-                                           @if($data['row']->status == 0)checked @endif>
+                                           @if($data->status == 0)checked @endif>
                                     Draft
                                 </label>
                             </div>

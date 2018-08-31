@@ -131,6 +131,7 @@ class ImageController extends Controller
         if (!file_exists($this->image_url)) {
             mkdir($this->image_url);
         }
+        $data->save();
 
         if ($file = $request->file('file')) {
             //remove old image if new is uploaded

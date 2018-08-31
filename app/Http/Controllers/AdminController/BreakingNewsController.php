@@ -121,6 +121,8 @@ class BreakingNewsController extends AdminBaseController
         $data->article= $request->article;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
+        $data->save();
+
         if (!file_exists($this->image_url)) {
             mkdir($this->image_url);
         }

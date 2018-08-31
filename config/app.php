@@ -216,6 +216,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'AppHelper'  => App\Facades\AppHelper::class,
+        'Str'   => Illuminate\Support\Str::class,
 
     ],
 

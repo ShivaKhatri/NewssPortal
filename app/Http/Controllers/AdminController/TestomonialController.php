@@ -148,6 +148,7 @@ class TestomonialController extends AdminBaseController
         $data->order= $request->order;
         $data->status = $request->status;
         $data->admin_id = Auth::user()->id;
+        $data->save();
 
         if (!file_exists($this->image_url)) {
             mkdir($this->image_url);

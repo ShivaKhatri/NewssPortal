@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-sm-10">
                         <div class="form-group">
-                            <label class="control-label">Title</label>
+                            <label class="control-label">Name</label>
                             <input class="form-control" type="text" name="title" required/>
                         </div>
                     </div>

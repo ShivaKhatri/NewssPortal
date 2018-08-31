@@ -13,7 +13,7 @@ class LiteratureController extends AdminBaseController
 {
     protected $model;
     protected $base_route = 'literature.index';
-    protected $view_path = 'backend.testimonials';
+    protected $view_path = 'backend.literature';
 
     /**
      * FacultyMemberController constructor.

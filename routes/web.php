@@ -39,9 +39,9 @@ Route::group(['prefix' => '', 'middleware' => 'auth'], function () {
     Route::resource('testimonials','AdminController\TestomonialController');
 
 
-    Route::get('literature/status', ['as' => 'testimonials.status', 'uses' => 'AdminController\TestomonialController@status']);
+    Route::get('literature/status', ['as' => 'literature.status', 'uses' => 'AdminController\LiteratureController@status']);
 
-    Route::resource('literature','AdminController\TestomonialController');
+    Route::resource('literature','AdminController\LiteratureController');
 
     Route::get('videos/status', ['as' => 'videos.status', 'uses' => 'AdminController\VideoController@status']);
 

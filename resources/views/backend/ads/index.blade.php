@@ -25,7 +25,7 @@
                             <thead>
                     <tr>
                         <th class="text-center">SN <i class="fa fa-sort"></i></th>
-                        <th> Title <i class="fa fa-sort"></i></th>
+                        <th> Link <i class="fa fa-sort"></i></th>
                         <th class="text-center">Published Date <i class="fa fa-sort"></i></th>
                         <th class="text-center">Status <i class="fa fa-sort"></i></th>
                         <th class="text-center">Order <i class="fa fa-sort"></i></th>

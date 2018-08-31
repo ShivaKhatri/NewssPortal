@@ -43,7 +43,7 @@
                     <div class="col-sm-10">
                         <div class="form-group">
                             <label class="control-label">Video</label>
-                            <input class="form-control" type="file" name="file" accept="videos/*" />
+                            <input class="form-control" type="text" name="video" required />
                         </div>
                     </div>
                 </div>

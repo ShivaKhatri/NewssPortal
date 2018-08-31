@@ -71,17 +71,10 @@ class VideoController extends Controller
         $data->order= $request->order;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
+        $data->video =$request->video;
 
-        if (!file_exists($this->image_url)) {
-            mkdir($this->image_url);
-        }
+        $data->save();
 
-        if ($file = $request->file('file')) {
-            $file_name = str_replace(' ', '_', (rand(1857, 9899) . '_' . $file->getClientOriginalName()));
-            $file->move($this->image_url, $file_name);
-            $data->video = $file_name;
-            $data->save();
-        }
         AppHelper::flash('success', trans('Well Done! News Video Created Successfully'));
 
         return redirect()->route($this->base_route);
@@ -129,25 +122,11 @@ class VideoController extends Controller
         $data->description= $request->description;
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
-        if (!file_exists($this->image_url)) {
-            mkdir($this->image_url);
-        }
 
-        if ($file = $request->file('file')) {
-            //remove old video if new is uploaded
-            if (!empty($data->video)) {
-                $file_path = $this->image_url . $data->video;
+            $data->video =$request->video;
 
-                if (file_exists($file_path)) {
-                    unlink($file_path);
-                }
-            }
-            //upload new video
-            $file_name = str_replace(' ', '_', (rand(1857, 9899) . '_' . $file->getClientOriginalName()));
-            $file->move($this->image_url, $file_name);
-            $data->video = $file_name;
             $data->save();
-        }
+
         AppHelper::flash('success', trans('Well Done! News Video Edited Successfully'));
 
         return redirect()->route($this->base_route);

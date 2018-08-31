@@ -22,7 +22,10 @@ class ArticleController extends AdminBaseController
     {
         $this->image_url = 'assets/uploads/post/';
     }
-
+    public function show($id)
+    {
+        //
+    }
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -96,8 +99,7 @@ class ArticleController extends AdminBaseController
         if (!$this->idExist($id)) {
             return redirect()->route($this->base_route)->with('alert-danger', 'Invalid Id');
         }
-        $data = [];
-        $data['row'] = $this->model;
+        $data = Article::find($id);
         $category=Category::all()->pluck('name','id')->toArray();
 
         return view('backend.article.edit', compact('data','category'));
@@ -110,6 +112,8 @@ class ArticleController extends AdminBaseController
      */
     public function update(Request $request, $id)
     {
+
+//        dd($request->all());
         $this->validate($request, [
             'title' => 'required',
             'category_id' => 'required',
@@ -132,6 +136,7 @@ class ArticleController extends AdminBaseController
 
         $data->admin_id=  Auth::user()->id;
         $data->status= $request->status;
+        $data->save();
         if (!file_exists($this->image_url)) {
             mkdir($this->image_url);
         }

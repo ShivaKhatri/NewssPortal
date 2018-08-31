@@ -38,12 +38,9 @@
                     <div class="col-sm-10">
                         <div class="form-group">
                             <label class="control-label">Image</label>
-                            <input class="form-control" type="file" name="file" accept="image/*"/>
+                            <input class="form-control" type="text" name="video"  value="{{$data['row']->video}}" required />
+
                         </div>
-                        @if(!empty($data['row']->video))
-                            <img src="{{asset('assets/uploads/video/'.$data['row']->video)}}" height="200" width="200"/>
-                        @endif
-                    </div>
                 </div>
 
                 <div class="row">
